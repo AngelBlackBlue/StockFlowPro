@@ -3,6 +3,10 @@
 /node_modules
 /build
 
+#docker
+mysql
+
+
 # Logs
 logs
 *.log
