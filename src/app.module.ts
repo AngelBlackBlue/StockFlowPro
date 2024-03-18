@@ -13,7 +13,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'user_angel',
       password: 'root',
       database: 'stock_flow_pro',
-      entities: [__dirname + '/**/entity.ts'],
+      autoLoadEntities: true,
       synchronize: true,
     }),
     CustomersModule,
