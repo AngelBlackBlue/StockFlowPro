@@ -1,4 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  DeleteDateColumn,
+} from 'typeorm';
 
 @Entity({ name: 'customers' })
 export class Customer {
@@ -29,4 +34,6 @@ export class Customer {
   province: string;
   @Column({ unique: true, type: 'uuid' })
   userId: string; //[ref: > user.id]
+  @DeleteDateColumn()
+  deletedAt: Date;
 }
