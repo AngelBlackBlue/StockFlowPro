@@ -14,11 +14,11 @@ export class CreateCustomerDto {
 
   @IsString()
   @IsOptional()
-  lastname: string;
+  lastname?: string;
 
   @IsString()
   @IsOptional()
-  description: string;
+  description?: string;
 
   @IsEmail()
   email: string;
@@ -28,25 +28,25 @@ export class CreateCustomerDto {
 
   @IsString()
   @IsOptional()
-  company: string;
+  company?: string;
 
   @IsString()
   @IsOptional()
-  image: string;
+  image?: string;
 
   @IsString()
   @IsOptional()
-  address: string;
+  address?: string;
 
   @IsNumber()
   @IsOptional()
-  number: number;
+  number?: number;
 
   @IsString()
   @IsOptional()
-  location: string;
+  location?: string;
 
   @IsString()
   @IsOptional()
-  province: string;
+  province?: string;
 }
