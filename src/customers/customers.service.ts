@@ -13,22 +13,27 @@ export class CustomersService {
   ) {}
 
   async create(createCustomerDto: CreateCustomerDto) {
-    return 'This action adds a new customer';
+    return await this.customerRepository.save(createCustomerDto);
+    // return 'This action adds a new customer';
   }
 
   async findAll() {
-    return `This action returns all customers`;
+    // return `This action returns all customers`;
+    return await this.customerRepository.find();
   }
 
-  async findOne(id: number) {
-    return `This action returns a #${id} customer`;
+  async findOne(id: string) {
+    return await this.customerRepository.findOneBy({ id });
+    // return `This action returns a #${id} customer`;
   }
 
-  async update(id: number, updateCustomerDto: UpdateCustomerDto) {
-    return `This action updates a #${id} customer`;
+  async update(id: string, updateCustomerDto: UpdateCustomerDto) {
+    // return `This action updates a #${id} customer`;
+    return await this.customerRepository.update(id, updateCustomerDto);
   }
 
-  async remove(id: number) {
-    return `This action removes a #${id} customer`;
+  async remove(id: string) {
+    // return `This action removes a #${id} customer`;
+    return await this.customerRepository.softDelete({ id });
   }
 }

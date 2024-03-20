@@ -1,14 +1,14 @@
-import { User } from 'src/users/entities/user.entity';
+import { Customer } from 'src/customers/entities/customer.entity';
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
   DeleteDateColumn,
-  ManyToOne,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity({ name: 'customers' })
-export class Customer {
+@Entity({ name: 'users' })
+export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -18,11 +18,11 @@ export class Customer {
   @Column()
   lastname: string;
 
-  @Column({ nullable: true })
-  description: string; // text;
-
   @Column({ unique: true })
   email: string; // [not null,unique]
+
+  @Column()
+  password: string;
 
   @Column()
   phone: string;
@@ -34,25 +34,23 @@ export class Customer {
   image: string;
 
   @Column({ nullable: true })
-  address: string;
+  cbu: string;
 
   @Column({ nullable: true })
-  number: number;
+  alias: number;
 
   @Column({ nullable: true })
-  location: string;
+  cuit: string;
 
   @Column({ nullable: true })
-  province: string;
+  validator: number;
+
+  @Column()
+  status: string;
 
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.customer, {
-    eager: true, // para que traiga las user al hacer un findOne
-  })
-  user: User;
-
-  @Column()
-  userId: string;
+  @OneToMany(() => Customer, (customer) => customer.user)
+  customer: Customer[];
 }
