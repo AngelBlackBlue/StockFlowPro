@@ -37,7 +37,7 @@ export class User {
   cbu: string;
 
   @Column({ nullable: true })
-  alias: number;
+  alias: string;
 
   @Column({ nullable: true })
   cuit: string;
