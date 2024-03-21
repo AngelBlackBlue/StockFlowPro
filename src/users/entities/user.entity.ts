@@ -15,7 +15,7 @@ export class User {
   @Column()
   firstname: string;
 
-  @Column()
+  @Column({ nullable: true })
   lastname: string;
 
   @Column({ unique: true })
@@ -37,7 +37,7 @@ export class User {
   cbu: string;
 
   @Column({ nullable: true })
-  alias: number;
+  alias: string;
 
   @Column({ nullable: true })
   cuit: string;
@@ -45,7 +45,7 @@ export class User {
   @Column({ nullable: true })
   validator: number;
 
-  @Column()
+  @Column({ nullable: true })
   status: string;
 
   @DeleteDateColumn()
