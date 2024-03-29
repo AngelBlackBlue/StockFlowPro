@@ -21,14 +21,14 @@ export class UsersService {
   }
 
   async findOne(id: string) {
-    return `This action returns a #${id} user`;
+    return await this.userRepository.findOneBy({ id });
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    return await this.userRepository.update(id, updateUserDto);
   }
 
   async remove(id: string) {
-    return `This action removes a #${id} user`;
+    return await this.userRepository.softDelete({ id }); //
   }
 }
