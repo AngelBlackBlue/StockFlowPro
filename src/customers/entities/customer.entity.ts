@@ -12,7 +12,7 @@ export class Customer {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ length: 20 })
   firstname: string;
 
   @Column()
@@ -48,11 +48,13 @@ export class Customer {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.customer, {
+  @ManyToOne(() => User, (user) => user.id, {
     eager: true, // para que traiga las user al hacer un findOne
   })
   user: User;
 
-  @Column()
-  userId: string;
+  // @ManyToOne(() => User, (user) => user.customer, {
+  //   eager: true, // para que traiga las user al hacer un findOne
+  // })
+  // user: User;
 }
