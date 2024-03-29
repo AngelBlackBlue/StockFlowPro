@@ -25,7 +25,7 @@ export class CustomersService {
       throw new BadRequestException('USER_NOT_FOUND');
     }
 
-    return await this.customerRepository.save(createCustomerDto);
+    return await this.customerRepository.save({ ...createCustomerDto, userId });
   }
 
   async findAll() {
