@@ -24,7 +24,7 @@ export class User {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ nullable: true })
   phone: string;
 
   @Column({ nullable: true })
@@ -51,6 +51,9 @@ export class User {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @OneToMany(() => Customer, (customer) => customer.user)
+  @OneToMany(() => Customer, (customer) => customer.id)
   customer: Customer[];
+
+  // @OneToMany(() => Customer, (customer) => customer.user)
+  // customer: Customer[];
 }

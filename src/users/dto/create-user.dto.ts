@@ -1,8 +1,8 @@
 import {
   IsEmail,
-  IsNumber,
-  IsOptional,
-  IsPhoneNumber,
+  // IsNumber,
+  // IsOptional,
+  // IsPhoneNumber,
   IsString,
 } from 'class-validator';
 
@@ -10,44 +10,45 @@ export class CreateUserDto {
   @IsString()
   firstname: string;
 
-  @IsString()
-  @IsOptional()
-  lastname?: string;
-
   @IsEmail()
   email: string;
 
   @IsString()
   password: string;
 
-  @IsPhoneNumber()
-  phone: string;
+  // @IsString()
+  // @IsOptional()
+  // lastname?: string;
 
-  @IsString()
-  @IsOptional()
-  company?: string;
+  // @IsPhoneNumber()
+  // @IsOptional()
+  // phone?: string;
 
-  @IsString()
-  @IsOptional()
-  image?: string;
+  // @IsString()
+  // @IsOptional()
+  // company?: string;
 
-  @IsString()
-  @IsOptional()
-  cbu?: string;
+  // @IsString()
+  // @IsOptional()
+  // image?: string;
 
-  @IsString()
-  @IsOptional()
-  alias?: string;
+  // @IsString()
+  // @IsOptional()
+  // cbu?: string;
 
-  @IsString()
-  @IsOptional()
-  cuit?: string;
+  // @IsString()
+  // @IsOptional()
+  // alias?: string;
 
-  @IsNumber()
-  @IsOptional()
-  validator?: number;
+  // @IsString()
+  // @IsOptional()
+  // cuit?: string;
 
-  @IsString()
-  @IsOptional()
-  status?: string;
+  // @IsNumber()
+  // @IsOptional()
+  // validator?: number;
+
+  // @IsString()
+  // @IsOptional()
+  // status?: string;
 }
