@@ -15,7 +15,7 @@ export class Customer {
   @Column({ length: 20 })
   firstname: string;
 
-  @Column()
+  @Column({ nullable: true })
   lastname: string;
 
   @Column({ nullable: true })
@@ -48,13 +48,8 @@ export class Customer {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.id, {
+  @ManyToOne(() => User, (user) => user.customer, {
     eager: true, // para que traiga las user al hacer un findOne
   })
   user: User;
-
-  // @ManyToOne(() => User, (user) => user.customer, {
-  //   eager: true, // para que traiga las user al hacer un findOne
-  // })
-  // user: User;
 }
