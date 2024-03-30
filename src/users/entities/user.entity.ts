@@ -51,9 +51,6 @@ export class User {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @OneToMany(() => Customer, (customer) => customer.id)
+  @OneToMany(() => Customer, (customer) => customer.user)
   customer: Customer[];
-
-  // @OneToMany(() => Customer, (customer) => customer.user)
-  // customer: Customer[];
 }
