@@ -27,7 +27,7 @@ export class CustomersService {
 
     return await this.customerRepository.save({
       ...createCustomerDto,
-      user: userId,
+      user,
     });
   }
 
