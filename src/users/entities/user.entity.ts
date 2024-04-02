@@ -1,10 +1,12 @@
 import { Customer } from 'src/customers/entities/customer.entity';
 import {
   Column,
+  CreateDateColumn,
   DeleteDateColumn,
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -47,6 +49,12 @@ export class User {
 
   @Column({ nullable: true })
   status: string;
+
+  @CreateDateColumn()
+  createdDate: Date;
+
+  @UpdateDateColumn()
+  updatedDate: Date;
 
   @DeleteDateColumn()
   deletedAt: Date;

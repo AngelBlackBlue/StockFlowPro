@@ -5,6 +5,8 @@ import {
   PrimaryGeneratedColumn,
   DeleteDateColumn,
   ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity({ name: 'customers' })
@@ -44,6 +46,12 @@ export class Customer {
 
   @Column({ nullable: true })
   province: string;
+
+  @CreateDateColumn()
+  createdDate: Date;
+
+  @UpdateDateColumn()
+  updatedDate: Date;
 
   @DeleteDateColumn()
   deletedAt: Date;
