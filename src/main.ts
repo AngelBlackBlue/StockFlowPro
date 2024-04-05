@@ -9,12 +9,12 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // se adminte de lo del DTO
+      whitelist: true, // se adminte DTO
       forbidNonWhitelisted: true, // error si envia otra informacion
       transform: true, //transformar los datos siempre que pueda
     }),
   );
 
-  await app.listen(3000);
+  await app.listen(parseInt(process.env.PORT_SERVER, 10) || 3000);
 }
 bootstrap();
