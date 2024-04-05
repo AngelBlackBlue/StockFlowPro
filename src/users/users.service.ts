@@ -9,11 +9,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    private readonly userRepository: Repository<User>, //se tiene que comportar como un repositorio que contiene la entidad
   ) {}
 
   async create(createUserDto: CreateUserDto) {
     return await this.userRepository.save(createUserDto);
+  }
+
+  async findOneByEmail(email: string) {
+    return this.userRepository.findOneBy({ email });
   }
 
   async findAll() {
