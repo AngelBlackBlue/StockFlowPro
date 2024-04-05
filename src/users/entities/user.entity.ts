@@ -20,7 +20,7 @@ export class User {
   @Column({ nullable: true })
   lastname: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: false })
   email: string; // [not null,unique]
 
   @Column()
@@ -49,6 +49,9 @@ export class User {
 
   @Column({ nullable: true })
   status: string;
+
+  @Column({ default: 'user' })
+  rol: string;
 
   @CreateDateColumn()
   createdDate: Date;
