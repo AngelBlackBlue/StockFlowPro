@@ -52,7 +52,5 @@ export class AuthService {
       token,
       email,
     };
-
-    return 'sigin';
   }
 }
