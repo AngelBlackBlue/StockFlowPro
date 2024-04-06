@@ -17,11 +17,11 @@ export class UsersService {
   }
 
   async findOneByEmail(email: string) {
-    return this.userRepository.findOneBy({ email });
+    return await this.userRepository.findOneBy({ email });
   }
 
   async findAll() {
-    return this.userRepository.find();
+    return await this.userRepository.find();
   }
 
   async findOne(id: string) {
