@@ -16,7 +16,9 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async register(registerDto: RegisterDto) {
+  async register(
+    registerDto: RegisterDto,
+  ): Promise<{ token: string; id: string }> {
     const { firstname, email, password } = registerDto;
 
     const user = await this.userService.findOneByEmail(email);
@@ -26,7 +28,24 @@ export class AuthService {
 
     const hash = await bcrypt.hash(password, 10);
 
-    return await this.userService.create({ firstname, email, password: hash });
+    const newUser = await this.userService.create({
+      firstname,
+      email,
+      password: hash,
+    });
+
+    if (!newUser) {
+      throw new BadRequestException('error creating user');
+    }
+
+    const payload = { sub: newUser.id };
+
+    const token = await this.jwtService.signAsync(payload);
+
+    return {
+      token,
+      id: newUser.id,
+    };
   }
 
   async signin(signinDto: SigninDto) {
@@ -50,7 +69,7 @@ export class AuthService {
 
     return {
       token,
-      email,
+      id: user.id,
     };
   }
 }
