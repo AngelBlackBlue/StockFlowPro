@@ -38,7 +38,7 @@ export class AuthService {
       throw new BadRequestException('error creating user');
     }
 
-    const payload = { sub: newUser.id };
+    const payload = { userId: newUser.id, role: newUser.role };
 
     const token = await this.jwtService.signAsync(payload);
 
@@ -63,7 +63,7 @@ export class AuthService {
       throw new UnauthorizedException('Incorrect password');
     }
 
-    const payload = { sub: user.id };
+    const payload = { userId: user.id, role: user.role };
 
     const token = await this.jwtService.signAsync(payload);
 
