@@ -72,4 +72,14 @@ export class AuthService {
       id: user.id,
     };
   }
+
+  async profile({ id, role }: { id: string; role: string }) {
+    // if (role !== 'user') {
+    //   throw new UnauthorizedException(
+    //     'You are not authorized to view this profile',
+    //   );
+    // }
+
+    return await this.userService.findOne(id);
+  }
 }
