@@ -51,7 +51,7 @@ export class User {
   status: string;
 
   @Column({ default: 'user' })
-  rol: string;
+  role: string;
 
   @CreateDateColumn()
   createdDate: Date;
