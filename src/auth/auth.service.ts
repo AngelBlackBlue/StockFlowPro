@@ -38,7 +38,7 @@ export class AuthService {
       throw new BadRequestException('error creating user');
     }
 
-    const payload = { sub: newUser.id };
+    const payload = { userId: newUser.id, role: newUser.role };
 
     const token = await this.jwtService.signAsync(payload);
 
@@ -63,7 +63,7 @@ export class AuthService {
       throw new UnauthorizedException('Incorrect password');
     }
 
-    const payload = { sub: user.id };
+    const payload = { userId: user.id, role: user.role };
 
     const token = await this.jwtService.signAsync(payload);
 
@@ -71,5 +71,15 @@ export class AuthService {
       token,
       id: user.id,
     };
+  }
+
+  async profile({ id, role }: { id: string; role: string }) {
+    // if (role !== 'user') {
+    //   throw new UnauthorizedException(
+    //     'You are not authorized to view this profile',
+    //   );
+    // }
+
+    return await this.userService.findOne(id);
   }
 }
