@@ -32,7 +32,7 @@ export class AuthController {
   // }
 
   @Get('profile')
-  @Auth(Role.USER)
+  @Auth([Role.ADMIN, Role.USER])
   profile(@Req() req: RequestWithUser) {
     return this.authService.profile(req.user);
   }
