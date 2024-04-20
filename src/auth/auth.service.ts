@@ -74,6 +74,7 @@ export class AuthService {
   }
 
   async profile({ id, role }: { id: string; role: string }) {
+    console.log(role);
     return await this.userService.findOne(id);
   }
 }
