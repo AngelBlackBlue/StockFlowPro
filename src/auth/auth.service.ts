@@ -21,7 +21,7 @@ export class AuthService {
   ): Promise<{ token: string; id: string }> {
     const { firstname, email, password } = registerDto;
 
-    const user = await this.userService.findOneByEmail(email);
+    const user = await this.userService.findOneByUserPasswork(email);
     if (user) {
       throw new BadRequestException('user is already registered');
     }
@@ -51,7 +51,7 @@ export class AuthService {
   async signin(signinDto: SigninDto) {
     const { email, password } = signinDto;
 
-    const user = await this.userService.findOneByEmail(email);
+    const user = await this.userService.findOneByUserPasswork(email);
 
     if (!user) {
       throw new UnauthorizedException('user not found');
