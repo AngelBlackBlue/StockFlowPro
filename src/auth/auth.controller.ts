@@ -2,7 +2,6 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { SigninDto } from './dto/signin.dto';
-// import { Request } from 'express';
 import { Role } from '../common/enum/role.enum';
 import { Auth } from './decorators/auth.decotator';
 import { ActiveUser } from 'src/common/decorators/active-user.decorator';
