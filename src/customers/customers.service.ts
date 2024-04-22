@@ -1,42 +1,64 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Customer } from './entities/customer.entity';
 import { Repository } from 'typeorm';
-import { User } from 'src/users/entities/user.entity';
+// import { User } from '../users/entities/user.entity';
+import { ActiveUser } from '../common/decorators/active-user.decorator';
+import { ActiveUserInterface } from '../common/interfaces/active-user.interface';
+import { Role } from '../common/enum/role.enum';
 
 @Injectable()
 export class CustomersService {
   constructor(
     @InjectRepository(Customer)
     private readonly customerRepository: Repository<Customer>,
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    // @InjectRepository(User)
+    // private readonly userRepository: Repository<User>,
   ) {}
 
   async create(
-    userId: string,
     createCustomerDto: CreateCustomerDto,
+    @ActiveUser()
+    user: ActiveUserInterface,
   ): Promise<Customer> {
-    const user = await this.userRepository.findOneBy({ id: userId });
+    // const user = await this.userRepository.findOneBy({ id: userId });
 
-    if (!user) {
-      throw new BadRequestException('USER_NOT_FOUND');
-    }
+    // if (!user) {
+    //   throw new BadRequestException('USER_NOT_FOUND');
+    // }
 
     return await this.customerRepository.save({
       ...createCustomerDto,
-      user,
+      userId: user.id,
     });
   }
 
-  async findAll(user) {
-    return await this.customerRepository.find(user);
+  async findAll(
+    @ActiveUser()
+    user: ActiveUserInterface,
+  ) {
+    if (user.role === Role.ADMIN) {
+      return await this.customerRepository.find();
+    }
+    return await this.customerRepository.find({ where: { userId: user.id } });
   }
 
-  async findOne(id: string) {
-    return await this.customerRepository.findOneBy({ id });
+  async findOne(id: string, user: ActiveUserInterface) {
+    const customer = await this.customerRepository.findOneBy({ id });
+
+    if (!customer) {
+      throw new BadRequestException('CUSTOMER_NOT_FOUND');
+    }
+
+    this.validateOwnership(customer, user);
+
+    return customer;
   }
 
   async update(id: string, updateCustomerDto: UpdateCustomerDto) {
@@ -45,5 +67,11 @@ export class CustomersService {
 
   async remove(id: string) {
     return await this.customerRepository.softDelete({ id });
+  }
+
+  private validateOwnership(customer: Customer, user: ActiveUserInterface) {
+    if (user.role !== Role.ADMIN && customer.userId !== user.id) {
+      throw new UnauthorizedException();
+    }
   }
 }
