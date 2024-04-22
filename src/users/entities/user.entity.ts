@@ -1,4 +1,4 @@
-import { Customer } from 'src/customers/entities/customer.entity';
+import { Customer } from '../../customers/entities/customer.entity';
 import {
   Column,
   CreateDateColumn,
@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Role } from '../../common/enum/role.enum';
 
 @Entity({ name: 'users' })
 export class User {
@@ -50,7 +51,7 @@ export class User {
   @Column({ nullable: true })
   status: string;
 
-  @Column({ default: 'user' })
+  @Column({ type: 'enum', default: Role.USER, enum: Role })
   role: string;
 
   @CreateDateColumn()

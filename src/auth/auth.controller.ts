@@ -1,15 +1,12 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { SigninDto } from './dto/signin.dto';
 // import { Request } from 'express';
-import { Role } from './enum/role.enum';
+import { Role } from '../common/enum/role.enum';
 import { Auth } from './decorators/auth.decotator';
-import { RequestWithUser } from './interface/auth.interface';
-
-// interface RequestWithUser extends Request {
-//   user: { id: string; role: string };
-// }
+import { ActiveUser } from 'src/common/decorators/active-user.decorator';
+import { ActiveUserInterface } from 'src/common/interfaces/active-user.interface';
 
 @Controller('auth')
 export class AuthController {
@@ -25,16 +22,9 @@ export class AuthController {
     return this.authService.signin(signinDto);
   }
 
-  // @Get('profile')
-  // @Roles(Role.USER)
-  // @UseGuards(AuthGuard, RolesGuard)
-  // profile(@Req() req: RequestWithUser) {
-  //   return this.authService.profile(req.user);
-  // }
-
   @Get('profile')
   @Auth([Role.ADMIN, Role.USER])
-  profile(@Req() req: RequestWithUser) {
-    return this.authService.profile(req.user);
+  profile(@ActiveUser() user: ActiveUserInterface) {
+    return this.authService.profile(user);
   }
 }
