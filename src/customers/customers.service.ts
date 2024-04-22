@@ -31,8 +31,8 @@ export class CustomersService {
     });
   }
 
-  async findAll() {
-    return await this.customerRepository.find();
+  async findAll(user) {
+    return await this.customerRepository.find(user);
   }
 
   async findOne(id: string) {
