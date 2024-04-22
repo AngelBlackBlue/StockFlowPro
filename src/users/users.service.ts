@@ -16,11 +16,11 @@ export class UsersService {
     return await this.userRepository.save(createUserDto);
   }
 
-  async findOneByEmail(email: string) {
-    return await this.userRepository.findOneBy({ email });
-  }
+  // async findOneByEmail(email: string) {
+  //   return await this.userRepository.findOneBy({ email });
+  // }
 
-  async findOneByUserPasswork(email: string) {
+  async findOneByUserWithPassword(email: string) {
     return await this.userRepository.findOne({
       where: { email },
       select: ['id', 'firstname', 'email', 'password', 'role'],
