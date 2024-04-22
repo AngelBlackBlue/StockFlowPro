@@ -1,4 +1,4 @@
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../../users/entities/user.entity';
 import {
   Entity,
   Column,
@@ -7,6 +7,7 @@ import {
   ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity({ name: 'customers' })
@@ -56,8 +57,15 @@ export class Customer {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.customer, {
-    eager: true, // para que traiga las user al hacer un findOne
-  })
+  // @ManyToOne(() => User, (user) => user.customer, {
+  //   eager: true, // para que traiga las user al hacer un findOne
+  // })
+  // user: User;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
   user: User;
+
+  @Column()
+  userId: string;
 }

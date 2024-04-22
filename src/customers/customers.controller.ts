@@ -12,20 +12,20 @@ import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { Auth } from 'src/auth/decorators/auth.decotator';
 import { Role } from 'src/common/enum/role.enum';
-import { ActiveUser } from 'src/common/decorators/active-user.decorator';
-import { ActiveUserInterface } from 'src/common/interfaces/active-user.interface';
+import { ActiveUser } from '../common/decorators/active-user.decorator';
+import { ActiveUserInterface } from '../common/interfaces/active-user.interface';
 
 @Auth([Role.ADMIN, Role.USER])
 @Controller('customers')
 export class CustomersController {
   constructor(private readonly customersService: CustomersService) {}
 
-  @Post(':userId')
+  @Post()
   create(
-    @Param('userId') userId: string,
     @Body() createCustomerDto: CreateCustomerDto,
+    @ActiveUser() user: ActiveUserInterface,
   ) {
-    return this.customersService.create(userId, createCustomerDto);
+    return this.customersService.create(createCustomerDto, user);
   }
 
   @Get()
@@ -34,8 +34,8 @@ export class CustomersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.customersService.findOne(id);
+  findOne(@Param('id') id: string, @ActiveUser() user: ActiveUserInterface) {
+    return this.customersService.findOne(id, user);
   }
 
   @Patch(':id')
