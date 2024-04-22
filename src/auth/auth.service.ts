@@ -50,7 +50,6 @@ export class AuthService {
 
   async signin(signinDto: SigninDto) {
     const { email, password } = signinDto;
-
     const user = await this.userService.findOneByUserWithPassword(email);
 
     if (!user) {
@@ -64,7 +63,6 @@ export class AuthService {
     }
 
     const payload = { userId: user.id, role: user.role };
-
     const token = await this.jwtService.signAsync(payload);
 
     return {
