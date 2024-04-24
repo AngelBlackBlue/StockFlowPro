@@ -61,8 +61,16 @@ export class CustomersService {
     return customer;
   }
 
-  async update(id: string, updateCustomerDto: UpdateCustomerDto) {
-    return await this.customerRepository.update(id, updateCustomerDto);
+  async update(
+    id: string,
+    updateCustomerDto: UpdateCustomerDto,
+    user: ActiveUserInterface,
+  ) {
+    await this.customerRepository.findOneBy({ id });
+    return await this.customerRepository.update(id, {
+      ...updateCustomerDto,
+      userId: user.id,
+    });
   }
 
   async remove(id: string) {

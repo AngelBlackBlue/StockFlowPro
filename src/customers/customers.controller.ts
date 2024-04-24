@@ -42,8 +42,9 @@ export class CustomersController {
   update(
     @Param('id') id: string,
     @Body() updateCustomerDto: UpdateCustomerDto,
+    @ActiveUser() user: ActiveUserInterface,
   ) {
-    return this.customersService.update(id, updateCustomerDto);
+    return this.customersService.update(id, updateCustomerDto, user);
   }
 
   @Delete(':id')
