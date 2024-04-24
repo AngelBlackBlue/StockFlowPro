@@ -28,7 +28,6 @@ export class CustomersService {
     user: ActiveUserInterface,
   ): Promise<Customer> {
     // const user = await this.userRepository.findOneBy({ id: userId });
-
     // if (!user) {
     //   throw new BadRequestException('USER_NOT_FOUND');
     // }
@@ -73,7 +72,8 @@ export class CustomersService {
     });
   }
 
-  async remove(id: string) {
+  async remove(id: string, user: ActiveUserInterface) {
+    await this.findOne(id, user);
     return await this.customerRepository.softDelete({ id });
   }
 
