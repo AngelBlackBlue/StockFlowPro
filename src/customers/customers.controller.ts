@@ -48,7 +48,7 @@ export class CustomersController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.customersService.remove(id);
+  remove(@Param('id') id: string, user: ActiveUserInterface) {
+    return this.customersService.remove(id, user);
   }
 }
