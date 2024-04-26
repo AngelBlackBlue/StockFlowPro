@@ -3,7 +3,7 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcrypt';
 import { SigninDto } from './dto/signin.dto';
@@ -38,7 +38,7 @@ export class AuthService {
       throw new BadRequestException('error creating user');
     }
 
-    const payload = { userId: newUser.id, role: newUser.role };
+    const payload = { id: newUser.id, role: newUser.role };
 
     const token = await this.jwtService.signAsync(payload);
 
@@ -62,7 +62,7 @@ export class AuthService {
       throw new UnauthorizedException('Incorrect password');
     }
 
-    const payload = { userId: user.id, role: user.role };
+    const payload = { id: user.id, role: user.role };
     const token = await this.jwtService.signAsync(payload);
 
     return {
@@ -71,8 +71,8 @@ export class AuthService {
     };
   }
 
+  // eslint-disable-next-line
   async profile({ id, role }: { id: string; role: string }) {
-    console.log(role);
     return await this.userService.findOne(id);
   }
 }

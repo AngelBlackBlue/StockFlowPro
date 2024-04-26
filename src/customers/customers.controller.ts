@@ -15,7 +15,7 @@ import { Role } from 'src/common/enum/role.enum';
 import { ActiveUser } from '../common/decorators/active-user.decorator';
 import { ActiveUserInterface } from '../common/interfaces/active-user.interface';
 
-@Auth([Role.ADMIN, Role.USER])
+@Auth([Role.USER])
 @Controller('customers')
 export class CustomersController {
   constructor(private readonly customersService: CustomersService) {}
