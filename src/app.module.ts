@@ -4,7 +4,6 @@ import { CustomersModule } from './customers/customers.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-import { RolesGuard } from './auth/guard/roles.guard';
 
 @Module({
   imports: [
@@ -26,11 +25,6 @@ import { RolesGuard } from './auth/guard/roles.guard';
     AuthModule,
   ],
   controllers: [],
-  providers: [
-    {
-      provide: 'APP_GUARD',
-      useClass: RolesGuard,
-    },
-  ],
+  providers: [],
 })
 export class AppModule {}
