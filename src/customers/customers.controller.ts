@@ -14,7 +14,7 @@ import { Auth } from 'src/auth/decorators/auth.decotator';
 import { Role } from 'src/common/enum/role.enum';
 import { ActiveUser } from '../common/decorators/active-user.decorator';
 import { ActiveUserInterface } from '../common/interfaces/active-user.interface';
-import { ApiBearerAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 
 @ApiTags('Customers')
 @ApiBearerAuth()
@@ -28,6 +28,7 @@ export class CustomersController {
 
   @Post()
   @ApiCreatedResponse({ description: 'The record has been successfully created.'})
+  @ApiBadRequestResponse({ description: 'Bad Request' })
   @ApiForbiddenResponse({ description: 'Forbidden.'})
   create(
     @Body() createCustomerDto: CreateCustomerDto,
