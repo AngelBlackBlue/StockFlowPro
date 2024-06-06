@@ -20,6 +20,7 @@ async function bootstrap() {
     .setTitle("Stock Flow Pro")
     .setDescription("The stock API description")
     .setVersion("1.0")
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("docs", app, document);
