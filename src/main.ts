@@ -1,6 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,6 +15,14 @@ async function bootstrap() {
       transform: true, //transformar los datos siempre que pueda
     }),
   );
+
+  const config = new DocumentBuilder()
+    .setTitle("Stock Flow Pro")
+    .setDescription("The stock API description")
+    .setVersion("1.0")
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup("docs", app, document);
 
   await app.listen(parseInt(process.env.PORT_SERVER, 10) || 3000);
 }
