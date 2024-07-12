@@ -6,13 +6,20 @@ import {
   Patch,
   Param,
   Delete,
+  UploadedFiles,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Auth } from '../auth/decorators/auth.decotator';
 import { Role } from '../common/enum/role.enum';
-import { ApiBearerAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 
 @ApiTags('Users')
 @ApiBearerAuth()
@@ -24,9 +31,11 @@ import { ApiBearerAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiTags, ApiUn
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()  
-  @ApiCreatedResponse({ description: 'The record has been successfully created.'})
-  @ApiForbiddenResponse({ description: 'Forbidden.'})
+  @Post()
+  @ApiCreatedResponse({
+    description: 'The record has been successfully created.',
+  })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
@@ -42,8 +51,12 @@ export class UsersController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+    @UploadedFiles() image: Express.Multer.File,
+  ) {
+    return this.usersService.update(id, updateUserDto, image);
   }
 
   @Delete(':id')
