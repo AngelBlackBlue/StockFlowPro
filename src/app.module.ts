@@ -35,9 +35,6 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 })
 export class AppModule {}
 
-
-
-
 // @Module({
 //   imports: [
 //     ConfigModule.forRoot({
@@ -61,4 +58,3 @@ export class AppModule {}
 //   controllers: [],
 //   providers: [],
 // })
-

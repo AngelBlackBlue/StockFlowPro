@@ -19,8 +19,9 @@ export class CloudinaryService {
       streamifier.createReadStream(file.buffer).pipe(uploadStream);
     });
   }
-  deleteImage(publicId: string): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
+
+  deleteImage(publicId: string): Promise<CloudinaryReponse> {
+    return new Promise<CloudinaryReponse>((resolve, reject) => {
       cloudinary.uploader.destroy(publicId, (error: any, result: any) => {
         if (error) return reject(error);
         resolve(result);

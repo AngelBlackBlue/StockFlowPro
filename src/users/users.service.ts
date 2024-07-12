@@ -4,12 +4,14 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>, //se tiene que comportar como un repositorio que contiene la entidad
+    private readonly cloudinaryService: CloudinaryService,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -31,7 +33,14 @@ export class UsersService {
     return await this.userRepository.findOneBy({ id });
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
+  async update(
+    id: string,
+    updateUserDto: UpdateUserDto,
+    image: Express.Multer.File,
+  ) {
+    const data = this.cloudinaryService.uploadImage(image);
+    console.log(data);
+
     return await this.userRepository.update(id, updateUserDto);
   }
 
