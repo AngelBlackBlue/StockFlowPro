@@ -10,13 +10,15 @@ export class CloudinaryService {
     const folder = 'stock_flow_pro';
     return new Promise<CloudinaryReponse>((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
-        { resource_type: 'auto', folder, public_id: file.originalname },
+        { resource_type: 'image', folder, public_id: file.originalname },
         (error, result) => {
           if (error) return reject(error);
           resolve(result);
         },
       );
-      streamifier.createReadStream(file.buffer).pipe(uploadStream);
+      console.log(file)
+      console.log(file[0].buffer)
+      streamifier.createReadStream(file[0].buffer).pipe(uploadStream);
     });
   }
 
@@ -27,5 +29,6 @@ export class CloudinaryService {
         resolve(result);
       });
     });
-  }
+  } 
 }
+

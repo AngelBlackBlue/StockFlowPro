@@ -38,10 +38,13 @@ export class UsersService {
     updateUserDto: UpdateUserDto,
     image: Express.Multer.File,
   ) {
-    const data = this.cloudinaryService.uploadImage(image);
-    console.log(data);
+    console.log(image)
+    const data = await this.cloudinaryService.uploadImage(image);
+    console.log(data) ;
 
-    return await this.userRepository.update(id, updateUserDto);
+    return "hola"
+
+    // return await this.userRepository.update(id, updateUserDto);
   }
 
   async remove(id: string) {
