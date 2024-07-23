@@ -34,7 +34,10 @@ export class User {
   company: string;
 
   @Column({ nullable: true })
-  image: string;
+  imageUrl: string;
+
+  @Column({ nullable: true })
+  publicId: string;
 
   @Column({ nullable: true })
   cbu: string;

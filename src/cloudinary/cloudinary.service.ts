@@ -15,10 +15,8 @@ export class CloudinaryService {
           if (error) return reject(error);
           resolve(result);
         },
-      );
-      console.log(file)
-      console.log(file[0].buffer)
-      streamifier.createReadStream(file[0].buffer).pipe(uploadStream);
+      );     
+      streamifier.createReadStream(file.buffer).pipe(uploadStream);
     });
   }
 
