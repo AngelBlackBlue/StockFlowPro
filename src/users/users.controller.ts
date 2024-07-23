@@ -54,19 +54,12 @@ export class UsersController {
 
   @Patch(':id')
   @UseInterceptors(FilesInterceptor('image'))
-  
   update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
     @UploadedFiles() image: Express.Multer.File
-    
   ) {
-    
-    console.log(id)
-    console.log(image);
-
-    // return image
-    return this.usersService.update(id, updateUserDto, image);
+    return this.usersService.update(id, updateUserDto, image[0]);
   }
 
   @Delete(':id')

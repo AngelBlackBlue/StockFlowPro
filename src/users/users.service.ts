@@ -38,16 +38,29 @@ export class UsersService {
     updateUserDto: UpdateUserDto,
     image: Express.Multer.File,
   ) {
-    console.log(image)
-    const data = await this.cloudinaryService.uploadImage(image);
-    console.log(data) ;
+     
+    if(image){
+      const user = await this.userRepository.findOneBy({ id });
+      user.publicId && await this.cloudinaryService.deleteImage(user.publicId)  
 
-    return "hola"
+      const data = await this.cloudinaryService.uploadImage(image);
+      updateUserDto.imageUrl = data.secure_url
+      updateUserDto.publicId = data.public_id
+    }
 
-    // return await this.userRepository.update(id, updateUserDto);
+    await this.userRepository.update(id, updateUserDto);
+
+    return await this.userRepository.findOne({
+      where: { id },
+      select: ['id', 'lastname', 'phone', 'company', 'imageUrl', 'cbu', 'alias', 'cuit'],
+    });
+
   }
 
   async remove(id: string) {
-    return await this.userRepository.softDelete({ id }); //
+    return await this.userRepository.softDelete({ id }); 
   }
+
+  
+
 }
