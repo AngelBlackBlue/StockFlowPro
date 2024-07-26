@@ -35,26 +35,3 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 })
 export class AppModule {}
 
-// @Module({
-//   imports: [
-//     ConfigModule.forRoot({
-//       isGlobal: true,
-//     }),
-//     TypeOrmModule.forRoot({
-//       type: 'mysql',
-//       host: process.env.DB_HOSTE,
-//       port: parseInt(process.env.DB_PORT, 10),
-//       username: process.env.DB_USER,
-//       password: process.env.DB_PASSWORD,
-//       database: process.env.DB_DATABASE,
-//       autoLoadEntities: true,
-//       synchronize: true,
-//     }),
-//     AuthModule,
-//     UsersModule,
-//     CustomersModule,
-//     CloudinaryModule,
-//   ],
-//   controllers: [],
-//   providers: [],
-// })
