@@ -1,28 +1,27 @@
 import { IsOptional, IsString, IsNumber } from 'class-validator';
 
 export class CreateStockDto {
+  @IsString()
+  sku: string;
 
-    @IsString()
-    sku: string;
-        
-    @IsString()
-    product: string;
-    
-    @IsString()
-    @IsOptional()
-    description?: string;
+  @IsString()
+  product: string;
 
-    @IsNumber()
-    amount: number;
+  @IsString()
+  @IsOptional()
+  description?: string;
 
-    @IsString()
-    @IsOptional()
-    image?: string;
+  @IsNumber()
+  amount: number;
 
-    @IsNumber()
-    buyPrice: number;
+  @IsString()
+  @IsOptional()
+  image?: string;
 
-    @IsNumber()
-    @IsOptional()
-    salePrice?: number;
+  @IsNumber({ maxDecimalPlaces: 2 })
+  buyPrice: number;
+
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @IsOptional()
+  salePrice?: number;
 }
