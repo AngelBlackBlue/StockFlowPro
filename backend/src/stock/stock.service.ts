@@ -1,26 +1,42 @@
 import { Injectable } from '@nestjs/common';
-import { CreateStockDto } from './dto/create-stock.dto';
-import { UpdateStockDto } from './dto/update-stock.dto';
+import { RegisterPurchaseDto } from './dto/RegisterPurchaseDto';
+import Web3 from 'web3';
+import { abi } from '../contracts/Stock.json';
+import { address } from '../contracts/Stock-address.json';
+import { uuidV4 } from 'web3-utils';
 
 @Injectable()
 export class StockService {
-  create(createStockDto: CreateStockDto) {
-    return 'This action adds a new stock';
+  async createPurchase(registerPurchaseDto: RegisterPurchaseDto) {
+
+
+    try {
+      const web3 = new Web3(new Web3.providers.HttpProvider('infura'));
+      const contract = new web3.eth.Contract(abi, address);
+      const uuid: string = uuidV4();
+
+      const tx = await contract.methods
+        .registerBuy({ uuid, ...registerPurchaseDto })
+        .send({ from: 'metamask' });
+
+      return tx;
+    } catch (error) {
+      console.error('Error interacting with contract:')
+      throw error;
+    }
+
+
   }
 
-  findAll() {
-    return `This action returns all stock`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} stock`;
-  }
-
-  update(id: number, updateStockDto: UpdateStockDto) {
-    return `This action updates a #${id} stock`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} stock`;
+  async findAll() {
+    try {
+      const web3 = new Web3(new Web3.providers.HttpProvider('infura'));
+      const contract = new web3.eth.Contract(abi, address);
+      const tx = await contract.methods.getAllProducts().call();
+      return tx;
+    } catch (error) {
+      console.error('Error al obtener los productos:', error);
+      throw error;
+    }
   }
 }
