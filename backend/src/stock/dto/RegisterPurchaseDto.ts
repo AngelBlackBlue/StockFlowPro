@@ -12,11 +12,20 @@ export class RegisterPurchaseDto {
   sku: string;
 
   @IsEnum(TypeDetail)
-  detail: TypeDetail;
+  detailString: TypeDetail;
 
   @IsNumber()
   input: number;
 
   @IsNumber()
-  uniCost: number;
+  unitCost: number;
+
+  @IsNumber()
+  balance: number;
+
+  @IsNumber()
+  totalCost: number;
+  
+  @IsNumber()
+  ppp: number
 }
