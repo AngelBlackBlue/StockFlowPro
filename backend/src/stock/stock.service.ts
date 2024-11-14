@@ -11,25 +11,19 @@ export enum TypeDetail {
   sell = 2,
 }
 
-const privateKey = '9b0292bd49dae2e7b2ad2ae9920b5c0868af609721880f819355552a721949f1';
+const privateKey =
+  '9b0292bd49dae2e7b2ad2ae9920b5c0868af609721880f819355552a721949f1';
 
 @Injectable()
 export class StockService {
-  private web3: Web3;
-  private contract: any;
-  private accountAddress = '0xcEcD36e37Cc7BFD4381FcBAF9F1A07ca3D5D693D';
-
-  constructor() {
-    this.web3 = new Web3(
-      new Web3.providers.HttpProvider(
-        'https://polygon-amoy.infura.io/v3/dfb2caef840745438b111b7f058c491d',
-      ),
-    );
-    this.contract = new this.web3.eth.Contract(abi, address);
-  }
-
   async createPurchase(registerPurchaseDto: RegisterPurchaseDto) {
     try {
+      const web3 = new Web3(
+        new Web3.providers.HttpProvider(
+          'https://polygon-amoy.infura.io/v3/dfb2caef840745438b111b7f058c491d',
+        ),
+      );
+      const contract = new web3.eth.Contract(abi, address);
       const uuid: string = uuidv4();
 
       const { sku, detailString, input, unitCost, balance, totalCost, ppp } =
@@ -37,22 +31,36 @@ export class StockService {
 
       const detail = TypeDetail[detailString as keyof typeof TypeDetail];
 
-      const nonce = await this.web3.eth.getTransactionCount(
-        this.accountAddress,
+      const nonce = await web3.eth.getTransactionCount(
+        address,
         'latest',
       );
 
       const tx = {
-        from: this.accountAddress,
+        from: '0xcEcD36e37Cc7BFD4381FcBAF9F1A07ca3D5D693D',
         to: address,
-        data: this.contract.methods
-          .mint(uuid, sku, detail, input, unitCost, balance, totalCost, ppp)
+        data: contract.methods
+          .registerBuy(
+            uuid,
+            sku,
+            detail,
+            input,
+            unitCost,
+            balance,
+            totalCost,
+            ppp,
+          )
           .encodeABI(),
         nonce,
       };
 
-      const signedTx = await this.web3.eth.accounts.signTransaction(tx, privateKey);
-      const result = await this.web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+      const signedTx = await web3.eth.accounts.signTransaction(
+        tx,
+        privateKey,
+      );
+      const result = await web3.eth.sendSignedTransaction(
+        signedTx.rawTransaction,
+      );
 
       return result;
     } catch (error) {
@@ -61,18 +69,16 @@ export class StockService {
     }
   }
 
-  async findAll() {
-    try {
-      const tx = await this.contract.methods.getAllProducts().call();
-      return tx;
-    } catch (error) {
-      console.error('Error al obtener los productos:', error);
-      throw error;
-    }
-  }
+  // async findAll() {
+  //   try {
+  //     const tx = await this.contract.methods.getAllProducts().call();
+  //     return tx;
+  //   } catch (error) {
+  //     console.error('Error al obtener los productos:', error);
+  //     throw error;
+  //   }
+  // }
 }
-
-
 
 // import { Injectable } from '@nestjs/common';
 // import { RegisterPurchaseDto } from './dto/RegisterPurchaseDto';
