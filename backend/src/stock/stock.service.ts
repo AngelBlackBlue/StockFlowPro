@@ -31,10 +31,7 @@ export class StockService {
 
       const detail = TypeDetail[detailString as keyof typeof TypeDetail];
 
-      const nonce = await web3.eth.getTransactionCount(
-        address,
-        'latest',
-      );
+      const nonce = await web3.eth.getTransactionCount(address, 'latest');
 
       const tx = {
         from: '0xcEcD36e37Cc7BFD4381FcBAF9F1A07ca3D5D693D',
@@ -51,33 +48,39 @@ export class StockService {
             ppp,
           )
           .encodeABI(),
+        gas: 5000000,
+        maxPriorityFeePerGas: web3.utils.toWei('25', 'gwei'),
+        maxFeePerGas: web3.utils.toWei('50', 'gwei'),
         nonce,
       };
 
-      const signedTx = await web3.eth.accounts.signTransaction(
-        tx,
-        privateKey,
-      );
+      const signedTx = await web3.eth.accounts.signTransaction(tx, privateKey);
       const result = await web3.eth.sendSignedTransaction(
         signedTx.rawTransaction,
       );
 
-      return result;
+      return result.transactionHash;
     } catch (error) {
       console.error('Error interacting with contract:', error);
       throw error;
     }
   }
 
-  // async findAll() {
-  //   try {
-  //     const tx = await this.contract.methods.getAllProducts().call();
-  //     return tx;
-  //   } catch (error) {
-  //     console.error('Error al obtener los productos:', error);
-  //     throw error;
-  //   }
-  // }
+  async findAll() {
+    try {
+      const web3 = new Web3(
+        new Web3.providers.HttpProvider(
+          'https://polygon-amoy.infura.io/v3/dfb2caef840745438b111b7f058c491d',
+        ),
+      );
+      const contract = new web3.eth.Contract(abi, address);
+      const tx = await contract.methods.getAllProducts().call();
+      return tx;
+    } catch (error) {
+      console.error('Error al obtener los productos:', error);
+      throw error;
+    }
+  }
 }
 
 // import { Injectable } from '@nestjs/common';
