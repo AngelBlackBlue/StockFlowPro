@@ -1,11 +1,9 @@
 // Usando TypeORM como ejemplo
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 
 @Entity()
 export class Product {
-  
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+
 
   @Column()
   tokenId: number;
