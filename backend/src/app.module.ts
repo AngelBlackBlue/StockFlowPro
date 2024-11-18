@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { DatabaseModule } from './database/database.module';
 import { StockModule } from './stock/stock.module';
+import { Web3Module } from './web3/web3.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { StockModule } from './stock/stock.module';
     CustomersModule,
     CloudinaryModule,
     StockModule,
+    Web3Module,
   ],
   controllers: [],
   providers: [],
