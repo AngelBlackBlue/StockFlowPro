@@ -30,6 +30,10 @@ const privateKey =
 
 @Injectable()
 export class StockService {
+
+
+
+
   async createPurchase(registerPurchaseDto: RegisterPurchaseDto) {
     try {
       const web3 = new Web3(
@@ -62,17 +66,15 @@ export class StockService {
             ppp,
           )
           .encodeABI(),
-        gas: 2100000,
-        maxPriorityFeePerGas: web3.utils.toWei('10', 'gwei'),
-        maxFeePerGas: web3.utils.toWei('20', 'gwei'),
+        gas: 25000,
+        // maxPriorityFeePerGas: web3.utils.toWei('1', 'gwei'),
+        // maxFeePerGas: web3.utils.toWei('2', 'gwei'),
         nonce,
       };
 
-      const senderBalance = await web3.eth.getBalance(tx.from);
-      const gasPrice = web3.utils.toBN(tx.maxFeePerGas).add(web3.utils.toBN(tx.gas));
-      if (web3.utils.toBN(senderBalance).lt(gasPrice)) {
-        throw new Error('Saldo insuficiente para cubrir el gas');
-      }
+      // const balancePol = await web3.eth.getBalance('0xcEcD36e37Cc7BFD4381FcBAF9F1A07ca3D5D693D');
+      // return web3.utils.fromWei(balancePol, 'ether');
+
 
       const signedTx = await web3.eth.accounts.signTransaction(tx, privateKey);
       const result = await web3.eth.sendSignedTransaction(

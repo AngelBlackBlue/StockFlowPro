@@ -7,6 +7,7 @@ import { RegisterPurchaseDto } from './dto/RegisterPurchaseDto';
 export class StockController {
   constructor(private readonly stockService: StockService) {}
 
+
   @Post('purchase')
   purchase(@Body() registerPurchaseDto: RegisterPurchaseDto) {
     return this.stockService.createPurchase(registerPurchaseDto);
