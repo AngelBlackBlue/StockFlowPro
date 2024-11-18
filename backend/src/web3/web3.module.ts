@@ -29,6 +29,6 @@ import { Web3Service } from './web3.service';
     },
     Web3Service,
   ],
-  exports: ['Web3', 'Config'],
+  exports: [Web3Service],
 })
 export class Web3Module {}
