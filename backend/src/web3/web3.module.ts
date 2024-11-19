@@ -3,6 +3,7 @@ import Web3 from 'web3';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { abi } from '../contracts/Stock'
 import { Web3Service } from './web3.service';
+import { Web3Controller } from './web3.controller';
 
 
 @Module({
@@ -30,5 +31,6 @@ import { Web3Service } from './web3.service';
     Web3Service,
   ],
   exports: [Web3Service],
+  controllers: [Web3Controller],
 })
 export class Web3Module {}
