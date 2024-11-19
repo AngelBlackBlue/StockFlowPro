@@ -1,6 +1,6 @@
 import { IsString, IsNumber, IsEnum } from 'class-validator';
 
-export enum TypeDetail {
+enum TypeDetail {
   initial = 'initial',
   buy = 'buy',
   sell = 'sell',
