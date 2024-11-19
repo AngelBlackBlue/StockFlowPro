@@ -6,8 +6,7 @@ enum TypeDetail {
   sell = 'sell',
 }
 
-
-export class CreateKardexpppDto {
+export class InputKardexpppDto {
   
   @IsString()
   sku: string;
@@ -21,12 +20,4 @@ export class CreateKardexpppDto {
   @IsNumber()
   unitCost: number;
 
-  @IsNumber()
-  balance: number;
-
-  @IsNumber()
-  totalCost: number;
-  
-  @IsNumber()
-  ppp: number
 }
