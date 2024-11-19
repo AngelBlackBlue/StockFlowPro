@@ -8,6 +8,7 @@ import { Web3Controller } from './web3.controller';
 
 @Module({
   imports: [ConfigModule],
+  controllers: [Web3Controller],
   providers: [
     {
       provide: 'Web3',
@@ -31,6 +32,5 @@ import { Web3Controller } from './web3.controller';
     Web3Service,
   ],
   exports: [Web3Service],
-  controllers: [Web3Controller],
 })
 export class Web3Module {}

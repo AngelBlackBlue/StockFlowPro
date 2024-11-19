@@ -7,6 +7,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { DatabaseModule } from './database/database.module';
 import { StockModule } from './stock/stock.module';
 import { Web3Module } from './web3/web3.module';
+import { KardexpppModule } from './kardexppp/kardexppp.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { Web3Module } from './web3/web3.module';
     CloudinaryModule,
     StockModule,
     Web3Module,
+    KardexpppModule,
   ],
   controllers: [],
   providers: [],
