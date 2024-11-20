@@ -283,6 +283,11 @@ export const abi = [
 			},
 			{
 				"internalType": "uint256",
+				"name": "output",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
 				"name": "balance",
 				"type": "uint256"
 			},
@@ -297,7 +302,7 @@ export const abi = [
 				"type": "uint256"
 			}
 		],
-		"name": "registerBuy",
+		"name": "register",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"

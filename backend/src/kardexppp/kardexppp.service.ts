@@ -9,9 +9,28 @@ import { Web3Service } from '../web3/web3.service';
 export class KardexpppService {
   constructor(private readonly web3Service: Web3Service) {}
 
-  async input(iputKardexpppDto: InputKardexpppDto) {
+  async input(inputKardexpppDto: InputKardexpppDto) {
     const allRegisters = await this.web3Service.findAll();
     console.log(allRegisters);
+    const { sku, detailString, input, unitCost} =  inputKardexpppDto
+
+    const skuKardex = allRegisters.filter((item) => item.sku === sku);
+    console.log(skuKardex);
+    // if (!skuKardex) {
+      
+    // }
+
+    const lastRegister = skuKardex[skuKardex.length - 1];
+    console.log(lastRegister);
+    
+    const newRegister = {
+      sku,
+      detail: detailString,
+      input,
+      unitCost,
+      
+    }
+
     return `This action adds a new kardexppp`;
   }
 
