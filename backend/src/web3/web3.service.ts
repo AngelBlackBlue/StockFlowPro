@@ -120,12 +120,16 @@ export class Web3Service {
       );
       const tx = await contract.methods.getAllProducts().call();
 
-      //Manejar posibles valores BigInt
+      console.log(tx)
+
+      // //Manejar posibles valores BigInt
       const sanitizedTx = JSON.parse(
         JSON.stringify(tx, (key, value) =>
-          typeof value === 'bigint' ? value.toString() : value,
+          typeof value === 'bigint' ? Number(value) : value,
         ),
       );
+
+      console.log(sanitizedTx)
 
       const cleanedTx = sanitizedTx.map((item: Product) => {
         const filtered = Object.fromEntries(
@@ -140,6 +144,7 @@ export class Web3Service {
       });
 
       return cleanedTx;
+      
     } catch (error) {
       console.error('Error al obtener los productos:', error);
       throw error;

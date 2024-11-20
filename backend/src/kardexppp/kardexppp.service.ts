@@ -13,6 +13,7 @@ export class KardexpppService {
     const allRegisters = await this.web3Service.findAll();
     console.log(allRegisters);
     const { sku, detailString, input, unitCost} =  inputKardexpppDto
+    console.log(inputKardexpppDto);
 
     const skuKardex = allRegisters.filter((item) => item.sku === sku);
     console.log(skuKardex);
@@ -22,14 +23,22 @@ export class KardexpppService {
 
     const lastRegister = skuKardex[skuKardex.length - 1];
     console.log(lastRegister);
+
+    // const newBalance: number = lastRegister.balance + input;
+    // const newTotalCost: number = lastRegister.totalCost + (input * unitCost);
+
+    // const newPPP = (newTotalCost / newBalance).toFixed(2);
     
-    const newRegister = {
-      sku,
-      detail: detailString,
-      input,
-      unitCost,
-      
-    }
+    // const newRegister = {
+    //   sku,
+    //   detail: detailString,
+    //   input,
+    //   unitCost,
+    //   output: 0,
+    //   balance: newBalance,
+    //   totalCost: newTotalCost,
+    //   ppp: newPPP,   
+    // }
 
     return `This action adds a new kardexppp`;
   }
