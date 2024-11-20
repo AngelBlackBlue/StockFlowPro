@@ -32,7 +32,7 @@ export class Web3Service {
       );
       const uuid: string = uuidV4();
 
-      const { sku, detailString, input, unitCost, output ,balance, totalCost, ppp } =
+      let { sku, detailString, input, unitCost, output ,balance, totalCost, ppp } =
         registerPurchaseDto;
 
       const detail = TypeDetail[detailString as keyof typeof TypeDetail];
@@ -41,9 +41,13 @@ export class Web3Service {
         this.config.wallet,
         'latest',
       );
-
-
-
+      
+      input = input *100;
+      unitCost = unitCost *100;
+      output = output *100;
+      balance = balance *100;
+      totalCost = totalCost *100;
+      ppp = ppp *100;
 
       const gasLimit = await contract.methods
       .register(
@@ -140,6 +144,13 @@ export class Web3Service {
         return {
           ...filtered,
           timestamp: new Date(Number(filtered.timestamp) * 1000).toISOString(),
+          detail: TypeDetail[filtered.detail as keyof typeof TypeDetail],
+          input: Number(filtered.input)/100,
+          unitCost: Number(filtered.unitCost)/100,
+          output: Number(filtered.output)/100,
+          balance: Number(filtered.balance)/100,
+          totalCost: Number(filtered.totalCost)/100,
+          ppp: Number(filtered.ppp)/100,
         };
       });
 
