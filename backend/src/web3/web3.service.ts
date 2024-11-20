@@ -32,7 +32,7 @@ export class Web3Service {
       );
       const uuid: string = uuidV4();
 
-      const { sku, detailString, input, unitCost, balance, totalCost, ppp } =
+      const { sku, detailString, input, unitCost, output ,balance, totalCost, ppp } =
         registerPurchaseDto;
 
       const detail = TypeDetail[detailString as keyof typeof TypeDetail];
@@ -46,12 +46,13 @@ export class Web3Service {
 
 
       const gasLimit = await contract.methods
-      .registerBuy(
+      .register(
         uuid,
         sku,
         detail,
         input,
         unitCost,
+        output,
         balance,
         totalCost,
         ppp,
@@ -63,26 +64,27 @@ export class Web3Service {
     const baseFee = await this.web3.eth.getGasPrice(); // costo base del gas
     console.log('baseFee:', baseFee);
 
-    const maxPriorityFeePerGas = this.web3.utils.toWei('2', 'gwei'); 
+    const maxPriorityFeePerGas = this.web3.utils.toWei('25', 'gwei'); 
     const maxFeePerGas = (BigInt(baseFee) + BigInt(maxPriorityFeePerGas)).toString();
 
 
-    const maxPriorityFeePerGas2 = this.web3.utils.toWei('25', 'gwei'); // propina adicional
-    const maxFeePerGas2 = (BigInt(baseFee) + BigInt(maxPriorityFeePerGas2)).toString(); //costo máximo de gas
-    console.log('maxPriorityFeePerGas:', maxPriorityFeePerGas2); 
-    console.log('maxFeePerGas:', maxFeePerGas2);
+    // const maxPriorityFeePerGas2 = this.web3.utils.toWei('25', 'gwei'); // propina adicional
+    // const maxFeePerGas2 = (BigInt(baseFee) + BigInt(maxPriorityFeePerGas2)).toString(); //costo máximo de gas
+    // console.log('maxPriorityFeePerGas:', maxPriorityFeePerGas2); 
+    // console.log('maxFeePerGas:', maxFeePerGas2);
 
 
       const tx = {
         from: this.config.wallet,
         to: this.config.contractAddress,
         data: contract.methods
-          .registerBuy(
+          .register(
             uuid,
             sku,
             detail,
             input,
             unitCost,
+            output,
             balance,
             totalCost,
             ppp,

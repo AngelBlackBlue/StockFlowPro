@@ -19,6 +19,9 @@ export class RegisterPurchaseDto {
 
   @IsNumber()
   unitCost: number;
+  
+  @IsNumber()
+  output: number;
 
   @IsNumber()
   balance: number;
