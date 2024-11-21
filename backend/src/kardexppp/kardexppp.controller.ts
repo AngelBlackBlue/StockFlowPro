@@ -10,6 +10,7 @@ import {
 import { KardexpppService } from './kardexppp.service';
 import { CreateKardexpppDto } from './dto/create-kardexppp.dto';
 import { InputKardexpppDto } from './dto/input-kardexppp.dto';
+import { OutputKardexpppDto } from './dto/output-kardexppp.dto';
 
 @Controller('kardexppp')
 export class KardexpppController {
@@ -20,23 +21,10 @@ export class KardexpppController {
     return this.kardexpppService.input(inputKardexpppDto);
   }
 
-  @Post()
-  create(@Body() createKardexpppDto: CreateKardexpppDto) {
-    return this.kardexpppService.create(createKardexpppDto);
+  @Post('output')
+  output(@Body() outputKardexpppDto: OutputKardexpppDto) {
+    return this.kardexpppService.output(outputKardexpppDto);
   }
 
-  @Get()
-  findAll() {
-    return this.kardexpppService.findAll();
-  }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.kardexpppService.findOne(+id);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.kardexpppService.remove(+id);
-  }
 }
