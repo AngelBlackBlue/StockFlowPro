@@ -16,6 +16,11 @@ import { OutputKardexpppDto } from './dto/output-kardexppp.dto';
 export class KardexpppController {
   constructor(private readonly kardexpppService: KardexpppService) {}
 
+  @Post('create')
+  create(@Body() createKardexpppDto: CreateKardexpppDto) {
+    return this.kardexpppService.create(createKardexpppDto);
+  }
+
   @Post('input')
   input(@Body() inputKardexpppDto: InputKardexpppDto) {
     return this.kardexpppService.input(inputKardexpppDto);
@@ -25,6 +30,11 @@ export class KardexpppController {
   output(@Body() outputKardexpppDto: OutputKardexpppDto) {
     return this.kardexpppService.output(outputKardexpppDto);
   }
+
+  @Get(':sku')
+  findAllSku(@Param('sku') sku: string) {
+    return this.kardexpppService.searchSku(sku);
+  } 
 
 
 }

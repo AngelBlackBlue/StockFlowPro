@@ -1,8 +1,29 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { RegisterPurchaseDto } from 'src/stock/dto/RegisterPurchaseDto';
+import { CreateKardexpppDto } from 'src/kardexppp/dto/create-kardexppp.dto';
 import Web3 from 'web3';
 import { uuidV4 } from 'web3-utils';
-import { TypeDetail, Product } from '../stock/types/types.product';
+// import { TypeDetail, Product } from '../stock/types/types.product';
+
+
+export enum TypeDetail {
+  initial = 0,
+  buy = 1,
+  sell = 2,
+}
+
+
+export interface Product {
+  uuid: string;
+  sku: string;
+  detail: TypeDetail; 
+  input: number;
+  unitCost: number;
+  output: number;
+  balance: number;
+  totalCost: number;
+  ppp: number;
+  timestamp: string; 
+}
 
 @Injectable()
 export class Web3Service {
@@ -23,7 +44,8 @@ export class Web3Service {
     return this.web3.utils.fromWei(balance, 'wei');
   }
 
-  async createPurchase(registerPurchaseDto: RegisterPurchaseDto) {
+  async create(createKardexpppDto: CreateKardexpppDto) {
+
     try {
       const contract = new this.web3.eth.Contract(
         this.config.contractAbi,
@@ -40,7 +62,7 @@ export class Web3Service {
         balance,
         totalCost,
         ppp,
-      } = registerPurchaseDto;
+      } = createKardexpppDto;
 
       const detail = TypeDetail[detailString as keyof typeof TypeDetail];
 
@@ -70,9 +92,9 @@ export class Web3Service {
         )
         .estimateGas({ from: this.config.wallet }); // valor estimado de gas a utilizar
 
-      console.log('Estimated Gas:', gasLimit);
+      // console.log('Estimated Gas:', gasLimit);
       const baseFee = await this.web3.eth.getGasPrice(); // costo base del gas
-      console.log('baseFee:', baseFee);
+      // console.log('baseFee:', baseFee);
 
       const maxPriorityFeePerGas = this.web3.utils.toWei('25', 'gwei');
       const maxFeePerGas = (
