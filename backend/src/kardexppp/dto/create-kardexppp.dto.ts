@@ -25,6 +25,9 @@ export class CreateKardexpppDto {
   balance: number;
 
   @IsNumber()
+  output: number;
+
+  @IsNumber()
   totalCost: number;
   
   @IsNumber()
