@@ -17,8 +17,8 @@ export class KardexpppController {
   constructor(private readonly kardexpppService: KardexpppService) {}
 
   @Post('create')
-  create(@Body() createKardexpppDto: CreateKardexpppDto) {
-    return this.kardexpppService.create(createKardexpppDto);
+  create(@Body() inputKardexpppDto: InputKardexpppDto) {
+    return this.kardexpppService.create(inputKardexpppDto);
   }
 
   @Post('input')
