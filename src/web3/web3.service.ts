@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateKardexpppDto } from 'src/kardexppp/dto/create-kardexppp.dto';
+import { CreateStockDto } from './dto/create-stock.dto';
 import Web3 from 'web3';
 import { uuidV4 } from 'web3-utils';
 // import { TypeDetail, Product } from '../stock/types/types.product';
@@ -44,7 +44,7 @@ export class Web3Service {
     return this.web3.utils.fromWei(balance, 'wei');
   }
 
-  async create(createKardexpppDto: CreateKardexpppDto) {
+  async create(createStockDto: CreateStockDto) {
 
     try {
       const contract = new this.web3.eth.Contract(
@@ -62,7 +62,7 @@ export class Web3Service {
         balance,
         totalCost,
         ppp,
-      } = createKardexpppDto;
+      } = createStockDto;
 
       const detail = TypeDetail[detailString as keyof typeof TypeDetail];
 
